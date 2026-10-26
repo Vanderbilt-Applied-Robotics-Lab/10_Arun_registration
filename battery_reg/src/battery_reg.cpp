@@ -67,7 +67,7 @@ void BatteryReg::registerPoints()
         // position of {w} wrt {r}
         p_rw_ = r_centroid - R_rw_*w_centroid;
 
-        RCLCPP_WARN(this->get_logger(), "Planar Case!");
+        RCLCPP_WARN(this->get_logger(), "Reflection Detected!");
 
         printResults(); 
         publishBatteryTF(R_rw_, p_rw_);
