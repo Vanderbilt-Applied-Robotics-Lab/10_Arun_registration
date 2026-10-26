@@ -1,5 +1,5 @@
 #ifndef BATTERY_REG_H
-#define ARUN_REG_H
+#define BATTERY_REG_H
 
 #include <rclcpp/rclcpp.hpp>
 #include <Eigen/Dense>
@@ -8,13 +8,11 @@
 #include "tf2_ros/static_transform_broadcaster.h"
 
 /**
- * Solution to take-home assignment 10
+ * Starter files for take-home assignment 10
  * Applied Robotics
- * Author: Garrison Johnston
  */
 class BatteryReg : public rclcpp::Node
 {
-    static constexpr uint8_t N_ = 5; // Number of points 
 public:
     /**
      * Constructor.
@@ -26,10 +24,7 @@ public:
      */
     ~BatteryReg() = default;
 
-    /**
-     * Computes the Arun registration
-     */
-    void registerPoints();
+    // DECLARE YOUR PUBLIC METHODS HERE
 
     /**
      * Publish battery mesh
@@ -37,34 +32,7 @@ public:
     void publishBatteryMesh();
 
 private:
-    /**
-     * Computes the centroid of a list of points
-     * @param points Array of points to compute centroid of
-     * @return The centroid 
-     */
-    Eigen::Vector3d computeCentroid(std::array<Eigen::Vector3d,N_> & points);
-
-    /**
-     * Computes the H matrix from Arun registration
-     */
-    void createH();
-
-    /**
-     * Computes the Fiducial Registration Error (FRE)
-     * @return The FRE 
-     */
-    double computeFRE();
-
-    /**
-     * Computes the Target Registration Error (TRE)
-     * @return The TRE 
-     */
-    double computeTRE();
-
-    /**
-     * Print the rotation matrix, TRE, and FRE
-     */
-    void printResults();
+    // DECLARE YOUR PRIVATE METHODS HERE
 
     /**
      * Publishes the battery transform
@@ -73,18 +41,7 @@ private:
      */
     void publishBatteryTF(const Eigen::Matrix3d & R, const Eigen::Vector3d & p);
 
-    std::array<Eigen::Vector3d,N_> p_w_; // points in workpiece frame
-    std::array<Eigen::Vector3d,N_> p_r_; // points in robot frame
-
-    std::array<Eigen::Vector3d,N_> q_w_; // points in workpiece frame
-    std::array<Eigen::Vector3d,N_> q_r_; // points in robot frame
-
-    Eigen::Matrix3d H_ = Eigen::Matrix3d::Zero(); // H Matrix from Arun Reg
-    Eigen::Matrix3d R_rw_ = Eigen::Matrix3d::Zero(); // the rotation matrix of {w} wrt {r}
-
-    Eigen::Vector3d p_rw_; // The position of {w} wrt {r}
-    Eigen::Vector3d p_r_new_; // New point for TRE in {r}
-    Eigen::Vector3d p_w_new_; // New point for TRE in {w}
+    // DECLARE YOUR MEMBER VARIABLES HERE
 
     // STUFF FOR PUBLISHING BATTERY 
     rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr battery_pub_;
@@ -92,4 +49,4 @@ private:
     std::shared_ptr<tf2_ros::StaticTransformBroadcaster> tf_broadcaster_;
 };
 
-#endif // EIGEN_EXAMPLE_H
+#endif // BATTERY_REG_H
